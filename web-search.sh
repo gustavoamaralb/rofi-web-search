@@ -28,16 +28,28 @@ if [ -n "$QUERY" ]; then
     SEARCH_TERM=$(urlencode "$RAW_TERM")
     FULL_QUERY=$(urlencode "$QUERY")
 
+    # the 'ox' prefix receives special handling: spaces become hyphens, apostrophes
+    # are removed, and everything is converted to lowercase, following the
+    # Oxford URL format for compound words and expressions
+    OX_TERM=$(echo "$SEARCH_TERM" | sed 's/%27//g' | tr '+' '-' | tr '[:upper:]' '[:lower:]')
+
     case "$PREFIX" in
         g)  xdg-open "https://google.com/search?q=$SEARCH_TERM" ;;
         yt) xdg-open "https://youtube.com/results?search_query=$SEARCH_TERM" ;;
         so) xdg-open "https://stackoverflow.com/search?q=$SEARCH_TERM" ;;
         gh) xdg-open "https://github.com/search?q=$SEARCH_TERM" ;;
         rd) xdg-open "https://www.reddit.com/search/?q=$SEARCH_TERM" ;;
+        ox) xdg-open "https://www.oxfordlearnersdictionaries.com/definition/english/$OX_TERM" ;;
         *)  xdg-open "https://google.com/search?q=$FULL_QUERY" ;;
     esac
     exit 0
 fi
 
 # defines the displayed message
-echo "digite 'g, yt, so, gh ou rd <busca>'"
+echo "digite 'g, yt, so, gh, rd ou ox <busca>'
+g = google
+yt = youtube
+so = stack overflow
+gh = github
+rd = reddit
+ox = oxford learner's dictionaries"
