@@ -31,10 +31,13 @@ if [ -n "$QUERY" ]; then
     case "$PREFIX" in
         g)  xdg-open "https://google.com/search?q=$SEARCH_TERM" ;;
         yt) xdg-open "https://youtube.com/results?search_query=$SEARCH_TERM" ;;
+        so) xdg-open "https://stackoverflow.com/search?q=$SEARCH_TERM" ;;
+        gh) xdg-open "https://github.com/search?q=$SEARCH_TERM" ;;
+        rd) xdg-open "https://www.reddit.com/search/?q=$SEARCH_TERM" ;;
         *)  xdg-open "https://google.com/search?q=$FULL_QUERY" ;;
     esac
     exit 0
 fi
 
 # defines the displayed message
-echo "digite 'g <busca>' ou 'yt <busca>'"
+echo "digite 'g, yt, so, gh ou rd <busca>'"
