@@ -28,7 +28,7 @@ if [ -n "$QUERY" ]; then
     SEARCH_TERM=$(urlencode "$RAW_TERM")
     FULL_QUERY=$(urlencode "$QUERY")
 
-    # the 'ox' prefix receives special handling: spaces become hyphens, apostrophes
+    # the "ox" prefix receives special handling: spaces become hyphens, apostrophes
     # are removed, and everything is converted to lowercase, following the
     # Oxford URL format for compound words and expressions
     OX_TERM=$(echo "$SEARCH_TERM" | sed 's/%27//g' | tr '+' '-' | tr '[:upper:]' '[:lower:]')
@@ -44,12 +44,4 @@ if [ -n "$QUERY" ]; then
     esac
     exit 0
 fi
-
-# defines the displayed message
-echo "digite 'g, yt, so, gh, rd ou ox <busca>'
-g = google
-yt = youtube
-so = stack overflow
-gh = github
-rd = reddit
-ox = oxford learner's dictionaries"
+#dheg
