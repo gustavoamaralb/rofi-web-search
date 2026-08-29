@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Rofi web search modi -- bsgustavoa (#dheg)
 # merges all arguments typed in Rofi into a single line
 QUERY="$*"
 
@@ -64,4 +65,3 @@ if [ -n "$QUERY" ]; then
     fi
     exit 0
 fi
-#dheg
