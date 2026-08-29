@@ -55,11 +55,19 @@ A [Rofi](https://github.com/davatorium/rofi) script mode that searches the web (
 | `gh`   | GitHub                            |
 | `rd`   | Reddit                            |
 | `ox`   | Oxford Learner's Dictionaries     |
+| `pdb`  | RCSB Protein Data Bank            |
+| `w`    | Wikipedia                         |
+| `cb`   | Google search using the current clipboard content |
 
 **Example:** typing `ox sweet pea` opens the Oxford dictionary entry for "sweet pea".
 
+- Prefixes are case-insensitive (`G test` works the same as `g test`).
 - Typing a prefix with no search terms (e.g. just `yt`) opens that site's homepage instead of an empty search.
+- Typing a bare domain or a full URL (e.g. `github.com` or `https://github.com/rofi/rofi`) opens it directly instead of searching for it. This is a best-effort heuristic — a term that happens to look like a domain (e.g. `node.js`) will also be treated as one; prefix it (`g node.js`) to force a search instead.
 - Typing text without a recognized prefix (e.g. `how to center a div`) falls back to a regular Google search for the whole query.
+- Opening the modi with nothing typed shows the list of available prefixes as a hint message.
+- `cb` requires `xclip` (X11) or `wl-paste` (Wayland, from `wl-clipboard`) to read the clipboard.
+- `pdb` searches via a Google `site:rcsb.org` query, since RCSB's own search UI is a JS app with no simple shareable search link.
 
 ## License
 
