@@ -19,10 +19,15 @@ urlencode() {
 
 if [ -n "$QUERY" ]; then
     # extracts the first word (prefix)
-    PREFIX=$(echo "$QUERY" | awk '{print $1}')
+    PREFIX="${QUERY%% *}"
 
-    # extracts the rest of the text (search term)
-    RAW_TERM=$(echo "$QUERY" | cut -d' ' -f2-)
+    # extracts the rest of the text (search term); empty if the query is
+    # just the prefix with no term after it
+    if [ "$PREFIX" = "$QUERY" ]; then
+        RAW_TERM=""
+    else
+        RAW_TERM="${QUERY#* }"
+    fi
 
     # encodes the term and the entire query
     SEARCH_TERM=$(urlencode "$RAW_TERM")
@@ -33,15 +38,30 @@ if [ -n "$QUERY" ]; then
     # Oxford URL format for compound words and expressions
     OX_TERM=$(echo "$SEARCH_TERM" | sed 's/%27//g' | tr '+' '-' | tr '[:upper:]' '[:lower:]')
 
+    # each known prefix has a homepage (used when only the prefix is typed,
+    # with no search term) and a search URL
     case "$PREFIX" in
-        g)  xdg-open "https://google.com/search?q=$SEARCH_TERM" ;;
-        yt) xdg-open "https://youtube.com/results?search_query=$SEARCH_TERM" ;;
-        so) xdg-open "https://stackoverflow.com/search?q=$SEARCH_TERM" ;;
-        gh) xdg-open "https://github.com/search?q=$SEARCH_TERM" ;;
-        rd) xdg-open "https://www.reddit.com/search/?q=$SEARCH_TERM" ;;
-        ox) xdg-open "https://www.oxfordlearnersdictionaries.com/definition/english/$OX_TERM" ;;
-        *)  xdg-open "https://google.com/search?q=$FULL_QUERY" ;;
+        g)  HOMEPAGE="https://google.com"
+            SEARCH_URL="https://google.com/search?q=$SEARCH_TERM" ;;
+        yt) HOMEPAGE="https://youtube.com"
+            SEARCH_URL="https://youtube.com/results?search_query=$SEARCH_TERM" ;;
+        so) HOMEPAGE="https://stackoverflow.com"
+            SEARCH_URL="https://stackoverflow.com/search?q=$SEARCH_TERM" ;;
+        gh) HOMEPAGE="https://github.com"
+            SEARCH_URL="https://github.com/search?q=$SEARCH_TERM" ;;
+        rd) HOMEPAGE="https://www.reddit.com"
+            SEARCH_URL="https://www.reddit.com/search/?q=$SEARCH_TERM" ;;
+        ox) HOMEPAGE="https://www.oxfordlearnersdictionaries.com"
+            SEARCH_URL="https://www.oxfordlearnersdictionaries.com/definition/english/$OX_TERM" ;;
+        *)  HOMEPAGE=""
+            SEARCH_URL="https://google.com/search?q=$FULL_QUERY" ;;
     esac
+
+    if [ -z "$RAW_TERM" ] && [ -n "$HOMEPAGE" ]; then
+        xdg-open "$HOMEPAGE"
+    else
+        xdg-open "$SEARCH_URL"
+    fi
     exit 0
 fi
 #dheg
