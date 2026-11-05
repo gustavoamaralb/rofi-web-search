@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Rofi web search modi -- bsgustavoa (#dheg)
+# Rofi web search modi -- gustavoamaralb (#dheg)
 # merges all arguments typed in Rofi into a single line
 QUERY="$*"
 
