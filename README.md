@@ -69,6 +69,10 @@ A [Rofi](https://github.com/davatorium/rofi) script mode that searches the web (
 - `cb` requires `xclip` (X11) or `wl-paste` (Wayland, from `wl-clipboard`) to read the clipboard.
 - `pdb` searches via a Google `site:rcsb.org` query, since RCSB's own search UI is a JS app with no simple shareable search link.
 
+## AI assistance
+
+Since August 2026, developed with [Claude Code](https://claude.com/claude-code) (Anthropic) as an AI coding assistant. Commits it contributed to carry a `Co-Authored-By: Claude` trailer.
+
 ## License
 
 [MIT](LICENSE)
